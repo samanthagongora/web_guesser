@@ -6,10 +6,9 @@ require 'pry'
 number = rand(100)
 
 get '/' do
-  erb :index, :locals => {:number => number, :message => ''}
-   new_guess = GuessingSequence.new(params[:guess], number)
-   message = new_guess.biforcate_guess
-  erb :index, :locals => {:number => number, :message => message}
+
+  new_guess = GuessingSequence.new(params[:guess], number)
+  erb :index, :locals => {:new_guess => new_guess}
 end
 
 class GuessingSequence
@@ -22,11 +21,17 @@ class GuessingSequence
   end
 
   def biforcate_guess
-    if number.to_s == @guess
+    if @guess.nil?
+      inital_guess
+    elsif number.to_s == @guess
       correct_guess
     else
       analyze_guess
     end
+  end
+
+  def inital_guess
+    start_game_message
   end
 
   def correct_guess
@@ -72,9 +77,7 @@ class GuessingSequence
     ask_for_integer
   end
 
-  # def cheat
-  #   p @number
-  #   message = cheaters_message
-  #   exit
-  # end
+  def cheat
+    cheaters_message
+  end
 end

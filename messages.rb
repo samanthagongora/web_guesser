@@ -11,8 +11,8 @@ module Messages
     p 'Please enter an integer between 1 and 100.'
   end
 
-  def winning_message
-    p 'You guessed the right number!'
+  def winning_message(number)
+    p "You got it right! The secret number is #{number}."
   end
 
   def way_too_high

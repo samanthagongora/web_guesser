@@ -2,10 +2,7 @@
   <head></head>
   <body>
     <p>
-      <%= new_guess.biforcate_guess %>
-      <br>
-      <br>
-      The SECRET NUMBER is <%= new_guess.number %>
+      <%= new_guess.human_readable %>
     </p>
     <form>
       <input type='text' name='guess' />

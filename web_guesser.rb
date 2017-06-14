@@ -5,6 +5,6 @@ require './guessing_sequence'
 number = rand(100)
 
 get '/' do
-  new_guess = GuessingSequence.new(params[:guess], number)
+  new_guess = GuessingSequence.new(params[:guess], number, params[:cheat])
   erb :index, :locals => {:new_guess => new_guess}
 end

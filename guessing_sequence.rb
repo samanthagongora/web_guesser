@@ -1,12 +1,14 @@
 require './messages'
+require 'pry'
 
 class GuessingSequence
   include Messages
 
-  attr_reader :guess, :number
-  def initialize(guess, number)
+  attr_reader :guess, :number, :cheat
+  def initialize(guess, number, cheat = false)
     @guess = guess
     @number = number
+    @cheat = cheat
   end
 
   def human_readable
@@ -29,10 +31,10 @@ class GuessingSequence
 
   def analyze_guess
     guess_int = @guess.to_i
-    if guess_int.to_s == @guess && guess_int <= 100 && guess_int >= 1
-      high_or_low_guess
-    elsif @guess.casecmp('c').zero?
+    if @cheat == 'true'
       cheat
+    elsif guess_int.to_s == @guess && guess_int <= 100 && guess_int >= 1
+      high_or_low_guess
     else
       non_integer_guess
     end
@@ -67,6 +69,6 @@ class GuessingSequence
   end
 
   def cheat
-    cheaters_message
+    cheaters_message(@number)
   end
 end
